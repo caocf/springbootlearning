@@ -21,8 +21,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		
+		<filter.path>/.</filter.path>
+		<env.properties.name>${env}</env.properties.name>
+		<filter.full.path>${basedir}${filter.path}/env-config/${env}.properties</filter.full.path>
+<!-- 		<datasource>test</datasource> -->
 	</properties>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -48,13 +53,51 @@
 
 	</dependencies>
 	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>dev</env>
+				<datasource>testdev</datasource>
+			</properties>
+		</profile> 
+		<profile>
+			<id>idt4</id>
+			<properties>
+				<env>idt4</env>
+<!-- 				<datasource>testidt4</datasource> -->
+			</properties>
+		</profile>
+	</profiles>
+	
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <!--spring-boot为了保护application.yml和application.properties，修改了默认的占位符${...}为@...@;使用下面的配置就使用默认占位符 -->
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
 		</plugins>
+		<filters>
+			<filter>${filter.full.path}</filter>
+		</filters>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 	</build>
 
 </project>

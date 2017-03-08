@@ -34,13 +34,14 @@
 ### 数据访问
 
 - chapter3-2-1：[使用JdbcTemplate](http://blog.didispace.com/springbootdata1/)
-- chapter3-2-2：[使用Spring-data-jpa简化数据访问层（推荐）](http://blog.didispace.com/springbootdata2/)
+- chapter3-2-2：[使用Spring-data-jpa简化数据访问层（推荐）](http://blog.didispace.com/springbootdata2/) --JPA操作
 - chapter3-2-3：[多数据源配置（一）：JdbcTemplate](http://blog.didispace.com/springbootmultidatasource/)
 - chapter3-2-4：[多数据源配置（二）：Spring-data-jpa](http://blog.didispace.com/springbootmultidatasource/)
 - chapter3-2-5：[使用NoSQL数据库（一）：Redis](http://blog.didispace.com/springbootredis/)
 - chapter3-2-6：[使用NoSQL数据库（二）：MongoDB](http://blog.didispace.com/springbootmongodb/)
 - chapter3-2-7：[整合MyBatis](http://blog.didispace.com/springbootmybatis/)
 - chapter3-2-8：[MyBatis注解配置详解](http://blog.didispace.com/mybatisinfo/)
+- chapter3-2-9：[Spring boot hibernate]
 
 ### 事务管理
 
