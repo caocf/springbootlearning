@@ -85,6 +85,12 @@
 - chapter9-2-1：[Spring Boot中使用Dubbo进行服务治理]
 - chapter9-2-2：[Spring Boot与Dubbo中管理服务依赖]
 
+### Weblogic部署
+
+- chapter10-1-1：[Spring Boot应用部署WebLogic] 
+- chapter10-1-2：[Spring Boot应用部署WebLogic : spring boot version 1.2.5.RELEASE] 
+
+
 ### Spring Cloud构建微服务架构
 
 由于Spring Cloud偏宏观架构，Spring Boot偏微观细节，内容上越来越多，为了两部分内容不互相干扰，所以迁移Spring Cloud内容到：[SpringCloud-Learning项目](http://git.oschina.net/didispace/SpringCloud-Learning)，该项目将不再更新Spring Cloud内容，关注Spring Cloud内容的请移步至[SpringCloud-Learning项目](http://git.oschina.net/didispace/SpringCloud-Learning)

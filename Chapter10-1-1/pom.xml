@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.didispace</groupId>
+	<artifactId>Chapter10-1-1</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+
+	<name>Chapter10-1-1</name>
+	<description>Spring Boot with Thymeleaf</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.0.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.7</java.version>
+		<weblogic.version>10.3.6.0</weblogic.version>
+		<weblogic.execution.phase>none</weblogic.execution.phase>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+			    </exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+	</dependencies>
+	
+	
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<env>dev</env>
+				<packaging>jar</packaging>
+				<spring.boot.starter.tomcat.scope>compile</spring.boot.starter.tomcat.scope>
+				<weblogic.execution.phase>none</weblogic.execution.phase>
+				<oracle.driver.scope>compile</oracle.driver.scope>
+			</properties>
+		</profile> 
+		<profile>
+			<id>idt4</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>idt4</env>
+				<weblogic.console.adminurl>t3://113.52.176.146:50102/console</weblogic.console.adminurl>
+				<weblogic.console.user>weblogic</weblogic.console.user>
+				<weblogic.console.password>Pass1234</weblogic.console.password>
+				<weblogic.console.targets>portal_app_cluster</weblogic.console.targets>
+			</properties>
+		</profile> 
+		<profile>
+			<id>idt5</id>
+<!-- 			<activation> -->
+<!-- 				<activeByDefault>true</activeByDefault> -->
+<!-- 			</activation> -->
+			<properties>
+				<env>idt5</env>
+				<weblogic.console.adminurl>t3://113.52.178.20:30103/console</weblogic.console.adminurl>
+				<weblogic.console.user>weblogic</weblogic.console.user>
+				<weblogic.console.password>Pass1234</weblogic.console.password>
+				<weblogic.console.targets>portal_app_cluster</weblogic.console.targets>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+<!-- 							<warSourceExcludes> -->
+<!-- 								**/WEB-INF/web.xml -->
+<!-- 							</warSourceExcludes> -->
+						</configuration>
+					</plugin>
+				</plugins> 
+			</build>
+		</profile> 
+	</profiles>
+	
+	
+	<build>
+<!-- 		<finalName>${project.artifactId}</finalName> -->
+		<finalName>testweb</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.oracle.weblogic</groupId>
+				<artifactId>weblogic-maven-plugin</artifactId>
+				<configuration>
+					<adminurl>${weblogic.console.adminurl}</adminurl>
+					<user>${weblogic.console.user}</user>
+					<password>${weblogic.console.password}</password>
+					<targets>${weblogic.console.targets}</targets>
+					<upload>true</upload>
+					<action>deploy</action>
+					<remote>false</remote>
+					<verbose>true</verbose>
+					<source>${basedir}/target/${project.build.finalName}.war</source>
+					<name>${project.build.finalName}</name>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>${weblogic.execution.phase}</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+		<pluginManagement>
+		<plugins>
+				<plugin>
+					<groupId>com.oracle.weblogic</groupId>
+					<artifactId>weblogic-maven-plugin</artifactId>
+					<version>${weblogic.version}</version>
+					<configuration>
+						<adminurl>${weblogic.console.adminurl}</adminurl> 
+						<user>${weblogic.console.user}</user>
+						<password>${weblogic.console.password}</password>
+						<targets>${weblogic.console.targets}</targets>
+						<upload>true</upload>
+						<action>deploy</action>
+						<remote>false</remote>
+						<verbose>true</verbose>
+						<source>${basedir}/target/${project.build.finalName}.war</source>
+						<name>${project.build.finalName}</name>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>${weblogic.execution.phase}</phase>
+							<goals>
+								<goal>deploy</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				
+				
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
