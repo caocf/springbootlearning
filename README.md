@@ -90,6 +90,9 @@
 - chapter10-1-1：[Spring Boot应用部署WebLogic] 
 - chapter10-1-2：[Spring Boot应用部署WebLogic : spring boot version 1.2.5.RELEASE] 
 
+### ERP
+- chapter10-2-1：[ERP --Spring Boot Hibernate] 
+
 
 ### Spring Cloud构建微服务架构
 
