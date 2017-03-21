@@ -1,0 +1,2 @@
+#org.springframework.boot.env.PropertySourceLoader=\
+#com.sos.tpl.common.util.jasypt.EncryptedPropertySourceLoader

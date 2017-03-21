@@ -27,7 +27,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.2.5.RELEASE</version>
 	</parent>
-	<groupId>com.sos.fleet</groupId>
+	<groupId>com.sos.tpl</groupId>
 	<artifactId>Chapter10-1-2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -111,7 +111,7 @@
 			</resource>
 		</resources>
 		<filters>
-			<filter>${basedir}/../fleet-env/${env}.properties</filter>
+			<filter>${basedir}/../tpl-env/${env}.properties</filter>
 		</filters>
 	</build>
 	<dependencyManagement>
@@ -120,15 +120,15 @@
 				<version>${spring.boot.version}</version> <type>pom</type> <scope>import</scope> 
 				</dependency> -->
 			<dependency>
-				<groupId>com.sos.fleet</groupId>
-				<artifactId>fleet-common</artifactId>
+				<groupId>com.sos.tpl</groupId>
+				<artifactId>tpl-common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.sos.fleet</groupId>
-				<artifactId>fleet-service</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>com.sos.tpl</groupId> -->
+<!-- 				<artifactId>tpl-service</artifactId> -->
+<!-- 				<version>${project.version}</version> -->
+<!-- 			</dependency> -->
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -236,26 +236,15 @@
 				<weblogic.execution.phase>none</weblogic.execution.phase>
 				<oracle.driver.scope>compile</oracle.driver.scope>
 			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-security</artifactId>
-				</dependency>
+<!-- 			<dependencies> -->
+<!-- 				<dependency> -->
+<!-- 					<groupId>org.springframework.boot</groupId> -->
+<!-- 					<artifactId>spring-boot-starter-security</artifactId> -->
+<!-- 				</dependency> -->
 				<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-jpamodelgen</artifactId> 
 					</dependency> -->
-			</dependencies>
-			<!-- <build> <plugins> <plugin> <artifactId>maven-compiler-plugin</artifactId> 
-				<configuration> <encoding>UTF-8</encoding> <source>${jdk.version}</source> 
-				<target>${jdk.version}</target> <compilerArguments> <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor> 
-				</compilerArguments> </configuration> </plugin> </plugins> </build> -->
-		</profile>
-		<profile>
-			<id>local</id>
-			<properties>
-				<env>dev</env>
-				<oracle.driver.scope>compile</oracle.driver.scope>
-				<weblogic.execution.phase>none</weblogic.execution.phase>
-			</properties>
+<!-- 			</dependencies> -->
+
 			<!-- local package a war which servlet 3.0 of weblogic without web.xml. -->
 			<build>
 				<plugins>
@@ -269,6 +258,10 @@
 					</plugin>
 				</plugins>
 			</build>
+			<!-- <build> <plugins> <plugin> <artifactId>maven-compiler-plugin</artifactId> 
+				<configuration> <encoding>UTF-8</encoding> <source>${jdk.version}</source> 
+				<target>${jdk.version}</target> <compilerArguments> <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor> 
+				</compilerArguments> </configuration> </plugin> </plugins> </build> -->
 		</profile>
 		<profile>
 			<id>idt4-portal</id>
@@ -329,8 +322,8 @@
 		</profile>
 	</profiles>
 	<modules>
-		<module>fleet-common</module>
-		<module>fleet-service</module>
-		<module>fleet-web</module>
+		<module>tpl-common</module>
+		<module>tpl-service</module>
+		<module>tpl-web</module>
 	</modules>
 </project>

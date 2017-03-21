@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.sos.tpl</groupId>
+		<artifactId>Chapter10-1-2</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	
+<!-- 	 <properties> -->
+<!-- 	  	<spring.boot.starter.tomcat.scope>none</spring.boot.starter.tomcat.scope> -->
+<!-- 		<weblogic.execution.phase>install</weblogic.execution.phase> -->
+<!-- 		<spring.boot.maven.plugin.skip>true</spring.boot.maven.plugin.skip> -->
+<!-- 	  </properties> -->
+	
+	<build>
+		<finalName>spbweb</finalName>
+		<plugins>
+			<plugin>
+				<groupId>com.oracle.weblogic</groupId>
+				<artifactId>weblogic-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<artifactId>tpl-web</artifactId>
+	<packaging>${packaging}</packaging> 
+	
+	
+	<dependencies>
+		<dependency>
+	  		<groupId>${project.groupId}</groupId>
+	  		<artifactId>tpl-common</artifactId>
+	  	</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>${project.groupId}</groupId> -->
+<!-- 			<artifactId>fleet-service</artifactId> -->
+<!-- 		</dependency> -->
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc14</artifactId>
+		    <version>${oracle.driver.version}</version>
+		     <scope>${oracle.driver.scope}</scope>
+		</dependency>
+	</dependencies>
+</project>
