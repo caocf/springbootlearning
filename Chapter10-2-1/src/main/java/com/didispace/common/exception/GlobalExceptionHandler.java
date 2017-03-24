@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.didispace.common.dto.ErrorInfo;
+import com.didispace.common.model.ErrorInfo;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

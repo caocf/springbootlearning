@@ -25,6 +25,13 @@
         <function-signature>java.lang.String getFrontPath()</function-signature>
         <example>${fns:getFrontPath()}</example>
     </function>
+    <function>
+        <description>URL解码</description>
+        <name>urlDecode</name>
+        <function-class>com.didispace.common.utils.encode.EncodeUtils</function-class>
+        <function-signature>java.lang.String urlDecode(java.lang.String)</function-signature>
+        <example>${fns:urlDecode(part)}</example>
+    </function>
 <!--     <function> -->
 <!--         <description>获取网站URL后缀</description> -->
 <!--         <name>getUrlSuffix</name> -->

@@ -1,4 +1,4 @@
-package com.didispace.common.util;
+package com.didispace.common.utils;
 
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.ELEMENT_COLLECTION;
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.MANY_TO_MANY;

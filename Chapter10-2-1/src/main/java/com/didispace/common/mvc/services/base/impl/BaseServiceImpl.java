@@ -19,7 +19,7 @@ public class BaseServiceImpl<T, ID extends Serializable> implements
 		BaseService<T, ID> {
 
 	protected BaseRepository<T, ID> jpaRepository;
-
+	
 	@Override
 	@Transactional
 	public void save(T entity) {

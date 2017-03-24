@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.didispace.module.sys.domain.UserDomain;
 
-//@Repository
-//public interface UserRepository extends BaseRepository<UserDomain, Long> {
 @Repository
 public interface UserRepository extends JpaRepository<UserDomain, Long> {
 
@@ -18,6 +16,9 @@ public interface UserRepository extends JpaRepository<UserDomain, Long> {
 
     @Query("from UserDomain u where u.userName=:userName")
     UserDomain findUser(@Param("userName") String userName);
+    
+    
+    
     
 
 }

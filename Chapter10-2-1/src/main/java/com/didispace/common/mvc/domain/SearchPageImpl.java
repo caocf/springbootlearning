@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 
 import com.didispace.common.mvc.condition.SortCondition;
 import com.didispace.common.settings.PageSettings;
-import com.didispace.common.util.JpaUtil;
+import com.didispace.common.utils.JpaUtil;
 
 public class SearchPageImpl<T> implements Pageable,Serializable {
 	public static final String TYPE_SIMPLE="simple";

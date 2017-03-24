@@ -18,7 +18,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.CollectionUtils;
 
 import com.didispace.common.mvc.domain.SearchPageImpl.SimpleOrder;
-import com.didispace.common.util.JpaUtil;
+import com.didispace.common.utils.JpaUtil;
 
 public abstract class SortCondition<T> implements Specification<T>,Serializable {
 

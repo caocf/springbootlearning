@@ -1,4 +1,4 @@
-package com.didispace.common.dto;
+package com.didispace.common.model;
 
 public class ErrorInfo<T> {
 
