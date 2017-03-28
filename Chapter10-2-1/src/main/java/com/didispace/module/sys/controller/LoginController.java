@@ -1,5 +1,7 @@
 package com.didispace.module.sys.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.didispace.common.model.Datagrid;
 import com.didispace.common.model.Result;
 import com.didispace.common.utils.encode.Encrypt;
+import com.didispace.core.security.SecurityConstants;
+import com.didispace.core.security.SessionInfo;
 import com.didispace.module.sys.service.UserService;
 import com.didispace.utils.AppConstants;
+import com.google.common.collect.Lists;
 
 @Controller
 @RequestMapping("${adminPath}/login")
@@ -46,5 +52,16 @@ public class LoginController   {
 		return result;
     }
 	
-	
+	/**
+     * 当前在线用户
+     *
+     * @throws Exception
+     */
+    @RequestMapping(value = {"onlineDatagrid"})
+    @ResponseBody
+    public Datagrid<SessionInfo> onlineDatagrid() throws Exception {
+    	List<SessionInfo> list = Lists.newArrayList();
+    	 Datagrid<SessionInfo> dg = new Datagrid<SessionInfo>(SecurityConstants.sessionInfoMap.size(), list);
+         return dg;
+    }
 }

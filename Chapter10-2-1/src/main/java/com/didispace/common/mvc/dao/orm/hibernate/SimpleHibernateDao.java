@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
 import org.hibernate.Hibernate;
@@ -28,6 +30,9 @@ import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.util.Assert;
 
@@ -45,28 +50,40 @@ import com.didispace.common.utils.reflection.ReflectionUtils;
  * 参考Spring2.5自带的Petlinc例子, 取消了HibernateTemplate, 直接使用Hibernate原生API.
  * 
  * @param <T> DAO操作的对象类型
- * @param <PK> 主键类型
+ * @param <ID> 主键类型
  * 
- * @author 尔演&Eryan eryanwcp@gmail.com
  */
 @SuppressWarnings("unchecked")
-public class SimpleHibernateDao<T, PK extends Serializable> {
-
+public class SimpleHibernateDao<T, ID extends Serializable>
+	extends SimpleJpaRepository<T, ID> {
+	
 	protected Logger logger = LoggerFactory.getLogger(getClass());
-
+	protected final EntityManager entityManager;
+	protected final JpaEntityInformation<T, ?> entityInformation;
+	
 	protected SessionFactory sessionFactory;
-
+//
 	protected Class<T> entityClass;
+	
+	public SimpleHibernateDao(Class<T> domainClass, EntityManager em) {
+		this(JpaEntityInformationSupport.getEntityInformation(domainClass, em), em);
+	}
 
+	public SimpleHibernateDao(JpaEntityInformation<T, ?> entityInformation,
+			EntityManager entityManager) {
+		super(entityInformation, entityManager);
+		this.entityInformation = entityInformation;
+		this.entityManager = entityManager;
+	}
 	/**
 	 * 用于Dao层子类使用的构造函数.
 	 * 通过子类的泛型定义取得对象类型Class.
 	 * eg.
 	 * public class UserDao extends SimpleHibernateDao<User, Long>
 	 */
-	public SimpleHibernateDao() {
-		this.entityClass = ReflectionUtils.getClassGenricType(getClass());
-	}
+//	public SimpleHibernateDao() {
+//		this.entityClass = ReflectionUtils.getClassGenricType(getClass());
+//	}
 
 	/**
 	 * 用于用于省略Dao层, 在Service层直接使用通用SimpleHibernateDao的构造函数.
@@ -74,38 +91,53 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 * eg.
 	 * SimpleHibernateDao<User, Long> userDao = new SimpleHibernateDao<User, Long>(sessionFactory, User.class);
 	 */
-	public SimpleHibernateDao(final SessionFactory sessionFactory, final Class<T> entityClass) {
-		this.sessionFactory = sessionFactory;
-		this.entityClass = entityClass;
-	}
+//	public SimpleHibernateDao(final SessionFactory sessionFactory, final Class<T> entityClass) {
+//		this.sessionFactory = sessionFactory;
+//		this.entityClass = entityClass;
+//	}
 
 	/**
 	 * 取得sessionFactory.
 	 */
 	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+		return getSession().getSessionFactory();
+//		return sessionFactory;
 	}
 
 	/**
 	 * 采用@Autowired按类型注入SessionFactory, 当有多个SesionFactory的时候在子类重载本函数.
 	 */
-	@Autowired
-	public void setSessionFactory(final SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+//	@Autowired
+//	public void setSessionFactory(final SessionFactory sessionFactory) {
+//		this.sessionFactory = sessionFactory;
+//	}
 
 	/**
 	 * 取得当前Session.
 	 */
 	public Session getSession() {
-		return sessionFactory.getCurrentSession();
+		return  entityManager.unwrap(org.hibernate.Session.class);
+//		return sessionFactory.getCurrentSession();
 	}
+	
+	
+	
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+	
+//	@Autowired
+//	public void setEntityManager(final EntityManager entityManager) {
+//		this.entityManager = entityManager;
+//	}
 	
 	/**
 	 * 取得当前Connection.
 	 */
 	public Connection getConnection() {
 	    try {
+	    	
 			return SessionFactoryUtils.getDataSource(getSessionFactory()).getConnection();
 		} catch (SQLException e) {
 			throw new DaoException(e);
@@ -115,11 +147,12 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 保存新增的对象.
 	 */
-	public void save(final T entity) {
-		Assert.notNull(entity, "entity不能为空");
-		getSession().save(entity);
-		logger.debug("save entity: {}", entity);
-	}
+//	@Override
+//	public void save(final T entity) {
+//		Assert.notNull(entity, "entity不能为空");
+//		super.save(entity);
+//		logger.debug("save entity: {}", entity);
+//	}
 	
 	/**
 	 * 保存修改的对象.
@@ -257,7 +290,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 按id删除对象.
 	 */
-	public void delete(final PK id) {
+	public void delete(final ID id) {
 		Assert.notNull(id, "id不能为空");
 		delete(get(id));
 		logger.debug("delete entity {},id is {}", entityClass.getSimpleName(), id);
@@ -266,7 +299,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 按id获取对象(直接返回实体类).
 	 */
-	public T get(final PK id) {
+	public T get(final ID id) {
 		Assert.notNull(id, "id不能为空");
 		return (T) getSession().get(entityClass, id);
 	}
@@ -279,7 +312,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 按id获取对象(实体的代理类实例,延迟缓存).
 	 */
-	public T load(final PK id) {
+	public T load(final ID id) {
 		Assert.notNull(id, "id不能为空");
 		return (T) getSession().load(entityClass, id);
 	}
@@ -303,7 +336,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	/**
 	 * 按id列表获取对象列表.
 	 */
-	public List<T> get(final Collection<PK> ids) {
+	public List<T> get(final Collection<ID> ids) {
 		return find(Restrictions.in(getIdName(), ids));
 	}
 	

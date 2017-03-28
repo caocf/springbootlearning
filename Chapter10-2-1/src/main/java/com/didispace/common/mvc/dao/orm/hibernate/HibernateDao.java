@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
@@ -19,6 +20,9 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.transform.ResultTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import com.didispace.common.mvc.dao.orm.Page;
@@ -38,27 +42,37 @@ import com.didispace.common.utils.reflection.ReflectionUtils;
  *            主键类型
  * 
  */
-public class HibernateDao<T, PK extends Serializable> extends
-		SimpleHibernateDao<T, PK> {
+//@Component
+public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao<T, PK> {
+	
+	public HibernateDao(Class<T> domainClass, EntityManager em) {
+		super(domainClass, em);
+	}
+	public HibernateDao(JpaEntityInformation<T, ?> entityInformation,
+			EntityManager entityManager) {
+		super(entityInformation, entityManager); 
+	}
 	/**
 	 * 用于Dao层子类的构造函数. 通过子类的泛型定义取得对象类型Class. eg. public class UserDao extends
 	 * HibernateDao<User, Long>{ }
 	 */
-	public HibernateDao() {
-		super();
-	}
-
+//	@Autowired
+//	public HibernateDao(Class<T> domainClass, EntityManager em) {
+//		super(domainClass, em);
+//	}
+	
 	/**
 	 * 用于省略Dao层, Service层直接使用通用HibernateDao的构造函数. 在构造函数中定义对象类型Class. eg.
 	 * HibernateDao<User, Long> userDao = new HibernateDao<User,
 	 * Long>(sessionFactory, User.class);
 	 */
-	public HibernateDao(final SessionFactory sessionFactory,
-			final Class<T> entityClass) {
-		super(sessionFactory, entityClass);
-	}
+//	public HibernateDao(final SessionFactory sessionFactory,
+//			final Class<T> entityClass) {
+//		super(sessionFactory, entityClass);
+//	}
 
 	// -- 分页查询函数 --//
+
 
 	/**
 	 * 分页获取全部对象.

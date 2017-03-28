@@ -5,9 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,16 +17,22 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.didispace.module.sys.domain.UserDomain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public class BaseDomain<PK extends Serializable> implements Persistable<PK> {
+	/**Constants**/
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
+	public static final String TIME_FORMAT = "HH:mm:ss";
+	public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss.S";
+	public static final String TIMEZONE = "GMT+08:00";
+	
+	
 	protected PK id, createBy, lastUpdateBy;
 	protected Date createDate, lastUpdateDate;
 	protected boolean deleteFlag;
 //	protected UserDomain userDomainByCreateBy, userDomainLastUpdateBy;
+
 
 	public BaseDomain() {
 		super();
@@ -37,14 +40,14 @@ public class BaseDomain<PK extends Serializable> implements Persistable<PK> {
 
 	public BaseDomain(PK id, PK createBy, PK lastUpdateBy, Date createDate,
 		Date lastUpdateDate, boolean deleteFlag) {
-	super();
-	this.id = id;
-	this.createBy = createBy;
-	this.lastUpdateBy = lastUpdateBy;
-	this.createDate = createDate;
-	this.lastUpdateDate = lastUpdateDate;
-	this.deleteFlag = deleteFlag;
-}
+		super();
+		this.id = id;
+		this.createBy = createBy;
+		this.lastUpdateBy = lastUpdateBy;
+		this.createDate = createDate;
+		this.lastUpdateDate = lastUpdateDate;
+		this.deleteFlag = deleteFlag;
+	}
 
 
 

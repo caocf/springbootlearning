@@ -3,12 +3,11 @@ package com.didispace.common.mvc.services.base;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
-
-import com.didispace.common.mvc.domain.SearchPageImpl;
-import com.didispace.common.mvc.domain.SearchPageRequest;
+import com.didispace.common.exception.DaoException;
+import com.didispace.common.exception.ServiceException;
+import com.didispace.common.exception.SystemException;
+import com.didispace.common.mvc.dao.orm.Page;
+import com.didispace.common.mvc.dao.orm.PropertyFilter;
 import com.didispace.common.mvc.domain.base.BaseDomain;
 
 public interface BaseService<T,ID extends Serializable> {
@@ -71,7 +70,27 @@ public interface BaseService<T,ID extends Serializable> {
 	 */
 	public void logicDelete(ID primaryKey);
 	
-	public Page<T> findAll(Specification<T> spe, PageRequest request);
-	public Page<T> findAll(SearchPageRequest<T> searchpage);
-	public SearchPageImpl<T> findAll(SearchPageImpl<T> searchpage);
+//	public Page<T> findAll(Specification<T> spe, PageRequest request);
+//	public Page<T> findAll(SearchPageRequest<T> searchpage);
+//	public SearchPageImpl<T> findAll(SearchPageImpl<T> searchpage);
+	
+	/**
+     * 过滤器分页查询.
+     * @param p 分页对象
+     * @param filters
+     *            属性过滤器
+     * @param isFilterDelete
+     *            是否过滤逻辑删除的数据
+     * @return
+     * @throws DaoException
+     * @throws SystemException
+     * @throws ServiceException
+     */
+	public Page<T> findPage(Page<T> p,
+            List<PropertyFilter> filters, boolean isFilterDelete)
+            		throws   ServiceException;
+	
+	
+	public Page<T> findPage(final Page<T> page, final List<PropertyFilter> filters)
+            throws  ServiceException;
 }

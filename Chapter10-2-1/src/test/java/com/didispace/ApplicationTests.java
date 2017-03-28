@@ -28,18 +28,18 @@ public class ApplicationTests {
 	@Before
 	public void beforTest() throws Exception {
 		// 创建12条记录
-		UserRepository.save(new UserDomain("AAA","arenzhj@163.com"));
-		UserRepository.save(new UserDomain("BBB", "arenzhj111@163.com"));
-		UserRepository.save(new UserDomain("CCC", "arenzhj1121@163.com"));
-		UserRepository.save(new UserDomain("CCC","arenzhj11123@163.com"));
-		UserRepository.save(new UserDomain("CCC", "arenzhj11124@163.com"));
-		UserRepository.save(new UserDomain("DDD", "arenzhj11125@163.com"));
-		UserRepository.save(new UserDomain("EEE", "arenzhj11126@163.com"));
-		UserRepository.save(new UserDomain("FFF", "arenzhj11127@163.com"));
-		UserRepository.save(new UserDomain("GGG", "arenzhj111272@163.com"));
-		UserRepository.save(new UserDomain("HHH", "arenzhj111234@163.com"));
-		UserRepository.save(new UserDomain("III", "arenzhj111253@163.com"));
-		UserRepository.save(new UserDomain("JJJ", "arenzhj111334@163.com"));
+//		UserRepository.save(new UserDomain("AAA","arenzhj@163.com"));
+//		UserRepository.save(new UserDomain("BBB", "arenzhj111@163.com"));
+//		UserRepository.save(new UserDomain("CCC", "arenzhj1121@163.com"));
+//		UserRepository.save(new UserDomain("CCC","arenzhj11123@163.com"));
+//		UserRepository.save(new UserDomain("CCC", "arenzhj11124@163.com"));
+//		UserRepository.save(new UserDomain("DDD", "arenzhj11125@163.com"));
+//		UserRepository.save(new UserDomain("EEE", "arenzhj11126@163.com"));
+//		UserRepository.save(new UserDomain("FFF", "arenzhj11127@163.com"));
+//		UserRepository.save(new UserDomain("GGG", "arenzhj111272@163.com"));
+//		UserRepository.save(new UserDomain("HHH", "arenzhj111234@163.com"));
+//		UserRepository.save(new UserDomain("III", "arenzhj111253@163.com"));
+//		UserRepository.save(new UserDomain("JJJ", "arenzhj111334@163.com"));
 	}
 	
 	@Test
