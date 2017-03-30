@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 @Configuration
 @EnableJpaRepositories(repositoryFactoryBeanClass=BaseRepositoryFactoryBean.class)
 public class JpaConfig {
+	
 	@ConditionalOnMissingBean({ DataSource.class, XADataSource.class })
 	@ConditionalOnProperty(prefix = DataSourceProperties.PREFIX, name = "url")
 	@Configuration

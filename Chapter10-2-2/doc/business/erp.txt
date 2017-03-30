@@ -1,0 +1,31 @@
+
+
+---Entity
+	t_xx_article :品种信息
+	t_xx_catelog :药品类别信息
+	t_xx_company :公司信息
+	t_xx_customer :客户信息
+	t_xx_area :片区信息
+	t_xx_accounter :业务员信息
+	t_xx_depot :仓库信息
+	t_xx_subject :财务科目信息
+	t_xx_supplier :供应商信息
+	
+	t_xs_customer_price :客户品种价格
+	t_xs_sale_detail :销售单明细
+	t_xs_sale :销售单
+	t_xs_sale_back :销售退货单
+	t_xs_sale_back_detail :销售退货明细
+
+	t_kc_stock :库存信息
+	t_kc_stock_check :库存盘点
+	
+	t_th_stockback :购进退货单
+	t_th_stockback_detail :购进退货明细
+	
+	
+	t_rk_stockin :购进退货单
+	t_rk_stockin_detail :入库明细表
+	
+	
+	

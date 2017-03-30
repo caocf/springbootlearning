@@ -44,7 +44,7 @@ public class RoleController extends BaseController{
         // 自动构造属性过滤器
         List<PropertyFilter> filters = HibernateWebUtils.buildPropertyFilters(SpringMVCHolder.getRequest(), HibernateWebUtils.FILTERPREFIX, false);
 //        page = getEntityManager().findPage(page,filters);
-        page = roleService.findPage(page, filters, false);
+        page = roleService.findPage(page, filters);
         Datagrid<RoleDomain> datagrid = new Datagrid<RoleDomain>(page.getTotalCount(), page.getResult());
         return datagrid;
     }

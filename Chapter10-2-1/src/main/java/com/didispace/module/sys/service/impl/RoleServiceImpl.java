@@ -1,24 +1,44 @@
 package com.didispace.module.sys.service.impl;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.didispace.common.mvc.services.base.impl.BaseServiceImpl;
-import com.didispace.module.sys.dao.RoleRepository;
+import com.didispace.common.exception.DaoException;
+import com.didispace.common.exception.ServiceException;
+import com.didispace.common.exception.SystemException;
+import com.didispace.common.mvc.dao.orm.Page;
+import com.didispace.common.mvc.dao.orm.hibernate.HibernateDao;
 import com.didispace.module.sys.domain.RoleDomain;
 import com.didispace.module.sys.service.RoleService;
 
 @Service
-public class RoleServiceImpl extends BaseServiceImpl<RoleDomain,Long> implements RoleService 
+public class RoleServiceImpl   implements RoleService 
 {
 //	@Autowired
 //	private UserRepository userRepository;
-	@Autowired
-	private RoleRepository roleRepository;
+//	@Autowired
+//	private RoleRepository roleRepository;
 	
 		
-//	@PersistenceContext
-//	private EntityManager em;
+	@PersistenceContext
+	private EntityManager em;
+	
+	private HibernateDao<RoleDomain, Long> roleEntityDao = new HibernateDao<RoleDomain, Long>(RoleDomain.class,this.em); ;
+	
+//	@Autowired
+//	public void setEntityManager(final EntityManager entityManager) {
+//		roleEntityDao = new HibernateDao<RoleDomain, Long>(RoleDomain.class,em);
+//		this.entityManager = entityManager;
+//	}
+//	public HibernateDao(Class<T> domainClass, EntityManager em) {
+//		super(domainClass, em);
+//	}
+	
 //	
 //	public List<UserDomain> getUserbyName(String userName){
 //		List<UserDomain> users = new ArrayList<UserDomain>();
@@ -37,12 +57,11 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDomain,Long> implements
 //		return users;
 //	}
 
-//	@Override
-//	public Page findPage(Page p, List filters, boolean isFilterDelete)
-//			throws DaoException, SystemException, ServiceException {
-//		return super.findPage(p, filters, isFilterDelete);
-//		
-//	}
+	@Override
+	public Page findPage(Page p, List filters)
+			throws DaoException, SystemException, ServiceException {
+		return roleEntityDao.findPage(p, filters);
+	}
 
 
 	

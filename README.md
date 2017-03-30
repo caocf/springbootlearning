@@ -42,6 +42,8 @@
 - chapter3-2-7：[整合MyBatis](http://blog.didispace.com/springbootmybatis/)
 - chapter3-2-8：[MyBatis注解配置详解](http://blog.didispace.com/mybatisinfo/)
 - chapter3-2-9：[Spring boot hibernate]
+- chapter3-2-10：[Spring boot hibernate advanced]
+
 
 ### 事务管理
 
@@ -92,6 +94,8 @@
 
 ### ERP
 - chapter10-2-1：[ERP --Spring Boot Hibernate] 
+- chapter10-2-2：[ERP --Spring mvc Hibernate] 
+- chapter10-2-2：[ERP --Spring mvc Hibernate bootstrap angularJS UI] 
 
 
 ### Spring Cloud构建微服务架构

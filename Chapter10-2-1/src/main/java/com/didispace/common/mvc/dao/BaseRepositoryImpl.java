@@ -11,31 +11,37 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.didispace.common.mvc.dao.orm.hibernate.HibernateDao;
+import com.didispace.common.mvc.domain.SearchPageImpl;
+import com.didispace.common.mvc.domain.SearchPageRequest;
 import com.didispace.common.mvc.domain.base.BaseDomain;
-
 @Transactional(readOnly = true)
-@Repository
 public class BaseRepositoryImpl<T, ID extends Serializable> extends
-		HibernateDao<T, ID> implements BaseRepository<T, ID> {
-	
-	public BaseRepositoryImpl(Class<T> domainClass, EntityManager em) {
-		super(domainClass, em);
-	}
-	public BaseRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
-			EntityManager entityManager) {
-		super(entityInformation, entityManager); 
-	}
-	//	private final EntityManager entityManager;
-//	private final JpaEntityInformation<T, ?> entityInformation;
+		SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
+	private final EntityManager entityManager;
+	private final JpaEntityInformation<T, ?> entityInformation;
 	private final String deleteFlag = "deleteFlag";
 	private final Integer deleteStatus = 1;
 	private final String id = "id";
 	private final String logicDeleteQuery = "update %s x  set x.deleteFlag = ?1  where ";
+
+	public BaseRepositoryImpl(Class<T> domainClass, EntityManager em) {
+		this(JpaEntityInformationSupport.getEntityInformation(domainClass, em), em);
+	}
+
+	public BaseRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
+			EntityManager entityManager) {
+		super(entityInformation, entityManager);
+		this.entityInformation = entityInformation;
+		this.entityManager = entityManager;
+	}
 
 	@Override
 	@Transactional
@@ -128,20 +134,20 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends
 				.where(builder.equal(root.get(propertyName), propertyValue));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
-//	@Override
-//	public <C extends Specification<T>> Page<T> findPage(
-//			SearchPageRequest<T> pageRequest) {
-//		return findAll(pageRequest.getCondition(), pageRequest);
-//	}
-//
-//	@Override
-//	public Page<T> findPage(Specification<T> spe, PageRequest request) {
-//		return findAll(spe, request);
-//	}
-//
-//	@Override
-//	public SearchPageImpl<T> findPage(SearchPageImpl<T> pageRequest) {
-//		pageRequest.setPageResult(findAll(pageRequest.getCondition(), pageRequest));
-//		return pageRequest;
-//	}
+	@Override
+	public <C extends Specification<T>> Page<T> findPage(
+			SearchPageRequest<T> pageRequest) {
+		return findAll(pageRequest.getCondition(), pageRequest);
+	}
+
+	@Override
+	public Page<T> findPage(Specification<T> spe, PageRequest request) {
+		return findAll(spe, request);
+	}
+
+	@Override
+	public SearchPageImpl<T> findPage(SearchPageImpl<T> pageRequest) {
+		pageRequest.setPageResult(findAll(pageRequest.getCondition(), pageRequest));
+		return pageRequest;
+	}
 }

@@ -48,6 +48,7 @@ public class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao
 	public HibernateDao(Class<T> domainClass, EntityManager em) {
 		super(domainClass, em);
 	}
+	
 	public HibernateDao(JpaEntityInformation<T, ?> entityInformation,
 			EntityManager entityManager) {
 		super(entityInformation, entityManager); 
