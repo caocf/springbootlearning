@@ -13,7 +13,7 @@
 		
 				
 						<c:set var="menus" value="${menu.children}" scope="request"/>
-                 		<%@ include file="/webpage/include/menu.jsp"%>
+                 		<%@ include file="/WEB-INF/views/include/menu.jsp"%>
 				
 				
 			

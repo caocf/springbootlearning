@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="/webpage/include/taglib.jsp"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
 	<title>角色管理</title>
 	<meta name="decorator" content="default"/>
-	<%@include file="/webpage/include/treeview.jsp" %>
+	<%@include file="/WEB-INF/views/include/treeview.jsp" %>
 	<script type="text/javascript">
 	 	var validateForm;
 		function doSubmit(){//回调函数，在编辑和保存动作时，供openDialog调用提交表单。

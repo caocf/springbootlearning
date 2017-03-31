@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="/webpage/include/taglib.jsp"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 	<meta http-equiv="x-ua-compatible" content="IE=7,9,10" >
     <title>JeePlus</title>
 
-	<%@ include file="/webpage/include/head.jsp"%>
+	<%@ include file="/WEB-INF/views/include/head.jsp"%>
 	<script src="${ctxStatic}/common/inspinia.js?v=3.2.0"></script>
 	<script src="${ctxStatic}/common/contabs.js"></script> 
     <meta name="keywords" content="JeePlus快速开发平台">

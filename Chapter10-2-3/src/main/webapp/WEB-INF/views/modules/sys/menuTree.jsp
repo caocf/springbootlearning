@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="/webpage/include/taglib.jsp"%><%--
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%><%--
 <html>
 <head>
 	<title>菜单导航</title>

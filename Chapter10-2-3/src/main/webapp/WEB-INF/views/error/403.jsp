@@ -20,12 +20,12 @@ else {
 <%@page import="com.jeeplus.common.utils.Exceptions"%>
 <%@page import="com.jeeplus.common.utils.StringUtils"%>
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>
-<%@include file="/webpage/include/taglib.jsp"%>
+<%@include file="/WEB-INF/views/include/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>403 - 操作权限不足</title>
-	<%@include file="/webpage/include/head.jsp" %>
+	<%@include file="/WEB-INF/views/include/head.jsp" %>
 </head>
 <body>
 	<div class="container-fluid">

@@ -39,7 +39,7 @@ public class WebSockertFilter implements Filter{
 		WebSocketImpl.DEBUG = false;
 		ChatServer s;
 		try {
-			s = new ChatServer(8668);
+			s = new ChatServer(8678);
 			s.start();
 			System.out.println( "websocket服务器启动,端口" + s.getPort() );
 		} catch (UnknownHostException e) {
