@@ -23,8 +23,6 @@ import com.jeeplus.common.utils.excel.fieldtype.RoleListType;
 
 /**
  * 用户Entity
- * @author jeeplus
- * @version 2013-12-05
  */
 public class User extends DataEntity<User> {
 
